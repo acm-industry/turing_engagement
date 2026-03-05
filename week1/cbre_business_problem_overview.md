@@ -1,0 +1,13 @@
+***CBRE Call Center Automation Business Problem Overview***
+*Sachit Madaan*
+*March 5, 2025*
+
+**The Problem**
+CBRE Group, the world's largest commercial real estate services firm, operates call centers to manage building maintenance and repair requests across its global properties. These call centers carry a significant operational expense, and so to reduce costs, CBRE deployed an automated call classification and routing system designed to handle inbound service requests without human intervention. However, this system is consistently failing to classify calls correctly, leading to chronic overescalation. This includes unnecessary routing to 911 emergency services with no safeguard in place to prevent it.
+The result is a worst-of-both-worlds scenario. CBRE continues to bear the high cost of staffed call centers while simultaneously running an unreliable automation layer that wastes emergency service resources and fails to deliver the efficiency gains it was built for.
+**The Opportunity**
+Given the scale of CBRE's operations, even incremental improvements to classification accuracy translate into substantial cost savings. The core opportunity here is to replace the failing auto-classification engine with an intelligent system that can accurately categorize inbound service requests using natural language understanding and historical call transcripts, route calls to the correct resolution path without defaulting to overescalation, and integrate seamlessly with CBRE's existing ticketing system to minimize disruption.
+**Proposed Approach**
+Turing's engagement will focus on building an agentic AI system that ingests CBRE's historical call data (transcripts, issue codes, routing decisions, and resolution outcomes) to learn the correct mapping between a caller's described problem and the appropriate service response. By analyzing patterns in how experienced human operators have historically resolved calls, the system can replicate expert-level triage at scale. The solution will employ techniques such as LangGraph-based agentic workflows and RAG to ensure decisions are grounded in real operational data rather than rule-based logic.
+**Impact**
+For investors, this engagement represents a high-leverage, repeatable use case. Facilities management call routing is a problem shared across the entire commercial real estate industry, and a proven solution for CBRE could become a scalable product. The downside of inaction is clear: continued worsening of call center spend with no path to operational efficiency. A successful deployment would directly reduce headcount-dependent costs, eliminate costly overescalation errors, and position CBRE to handle growing call volume without proportional cost increases.
