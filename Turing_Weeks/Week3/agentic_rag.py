@@ -1,5 +1,8 @@
+import json
 import os
+import time
 import warnings
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from enum import Enum
 from pathlib import Path
 from typing import Annotated, Optional
@@ -68,7 +71,6 @@ def make_retriever_tool(vector_store: InMemoryVectorStore):
 
 
 #Structured extraction models
-
 class Severity(str, Enum):
     CRITICAL = "Critical"
     HIGH = "High"
@@ -87,21 +89,15 @@ class MaintenanceEntity(BaseModel):
 
 
 class EntityQualityCheck(BaseModel):
-    """Validate that each extracted entity is specific enough to be actionable."""
-    problem_type_ok: bool = Field(description="True only if problem_type describes a specific error or symptom, not a vague word like 'issue' or 'problem'")
-    affected_system_ok: bool = Field(description="True only if affected_system names a specific product, tool, or device — not generic terms like 'computer' or 'system'")
-    location_ok: bool = Field(description="True only if location_detail includes both a building name AND a city — a floor number or room alone is NOT sufficient")
-    urgency_ok: bool = Field(description="True only if urgency_indicators contains at least one specific phrase about timing or impact from the description")
+    """Validate that the problem description is specific enough to drive accurate retrieval."""
+    problem_type_ok: bool = Field(description="True only if problem_type describes a specific symptom or failure (e.g. 'water leaking from ceiling pipe', 'elevator stuck between floors') — not vague words like 'issue', 'problem', or 'something wrong'")
     problem_type_followup: str = Field(description="Question to get a more specific problem description. Empty string if problem_type_ok is True.")
-    affected_system_followup: str = Field(description="Question to get the exact device or software name. Empty string if affected_system_ok is True.")
-    location_followup: str = Field(description="Question to get building name and city. Empty string if location_ok is True.")
-    urgency_followup: str = Field(description="Question to understand timing or business impact. Empty string if urgency_ok is True.")
 
 
 class GradeDocuments(BaseModel):
     """Grade documents using a binary score for relevance check."""
     binary_score: str = Field(description="Relevance score: 'yes' if relevant, or 'no' if not relevant")
-    confidence: float = Field(description="Confidence in this relevance decision, from 0.0 to 1.0")
+    confidence: float = Field(description="Confidence in this relevance decision, from 0.0 to 1.0. Use < 0.7 for borderline cases where the document is partially relevant.")
 
 
 class Classification(BaseModel):
@@ -113,28 +109,28 @@ class Classification(BaseModel):
 
 
 # Prompts
-
 ENTITY_EXTRACTION_PROMPT = (
-    "You are a tech support analyst. A user has described a problem.\n"
+    "You are a building maintenance analyst. A caller has described a problem.\n"
     "Extract the key information from their description.\n"
     "If a field cannot be determined from the description, leave it as null.\n\n"
     "Severity guidelines:\n"
-    "- Critical: Data loss risk, full outage, security breach, or all work blocked\n"
-    "- High: Significant disruption, multiple users affected, or escalating quickly\n"
-    "- Medium: One user affected, workaround exists, or intermittent issue\n"
-    "- Low: Minor inconvenience, cosmetic, or low-priority request\n\n"
-    "User description: {description}"
+    "- Critical: Immediate danger to life/safety (gas leak, fire, trapped persons, flooding near electrical/IT equipment)\n"
+    "- High: Significant disruption or escalation risk (major water leak, broken security, HVAC failure, power outage)\n"
+    "- Medium: Needs attention soon but not an emergency (broken door latch, minor plumbing, non-life-safety HVAC)\n"
+    "- Low: Minor/cosmetic (flickering light, carpet stain, empty dispenser, aesthetic repairs)\n\n"
+    "Key compound hazard rules:\n"
+    "- Water near electrical equipment or servers → Critical\n"
+    "- Any gas smell in an enclosed space → Critical\n"
+    "- People trapped anywhere → Critical\n\n"
+    "Caller description: {description}"
 )
 
 QUALITY_CHECK_PROMPT = (
-    "You are validating whether a tech support ticket has enough specific information.\n\n"
-    "Extracted entity:\n"
-    "- problem_type: {problem_type}\n"
-    "- affected_system: {affected_system}\n"
-    "- location_detail: {location_detail}\n"
-    "- urgency_indicators: {urgency_indicators}\n\n"
-    "Check each field for specificity and generate a targeted follow-up question "
-    "for any that are vague, generic, or incomplete."
+    "You are validating whether a maintenance ticket has a specific enough problem description to search accurately.\n\n"
+    "Extracted problem_type: {problem_type}\n\n"
+    "Is this a specific symptom or failure (e.g. 'water leaking from ceiling pipe', 'elevator stuck between floors')? "
+    "Or is it too vague (e.g. 'issue', 'problem', 'something wrong')? "
+    "If vague, generate one targeted follow-up question to get a concrete description."
 )
 
 GRADE_PROMPT = (
@@ -152,14 +148,6 @@ REWRITE_PROMPT = (
     "Formulate an improved question:"
 )
 
-GENERATE_PROMPT = (
-    "You are an assistant for question-answering tasks. "
-    "Use the following pieces of retrieved context to answer the question. "
-    "If you don't know the answer, just say that you don't know. "
-    "Use three sentences maximum and keep the answer concise.\n"
-    "Question: {question}\nContext: {context}"
-)
-
 CLASSIFY_PROMPT = (
     "You are classifying a building maintenance issue to a problem code.\n"
     "Based on the extracted information and the retrieved candidate codes, "
@@ -172,7 +160,7 @@ CLASSIFY_PROMPT = (
 )
 
 
-# Extended graph state — adds entity-extraction fields to MessagesState
+# Extended graph state adds entity-extraction fields to MessagesState
 
 class WorkflowState(MessagesState):
     """Full workflow state: chat messages + entity extraction tracking."""
@@ -192,7 +180,7 @@ def make_extract_entities(llm: ChatOpenAI):
     extractor = llm.with_structured_output(MaintenanceEntity)
 
     def extract_entities(state: WorkflowState):
-        print("\n[NODE] extract_entities")
+        # print("\n[NODE] extract_entities")
         description = state.get("accumulated_description", "")
         if not description:
             description = state["messages"][0].content
@@ -200,11 +188,11 @@ def make_extract_entities(llm: ChatOpenAI):
         entity = extractor.invoke(
             ENTITY_EXTRACTION_PROMPT.format(description=description)
         )
-        print(f"  problem_type:   {entity.problem_type}")
-        print(f"  affected_system:{entity.affected_system}")
-        print(f"  location_detail:{entity.location_detail}")
-        print(f"  severity:       {entity.severity.value}")
-        print(f"  urgency:        {entity.urgency_indicators}")
+        # print(f"  problem_type:   {entity.problem_type}")
+        # print(f"  affected_system:{entity.affected_system}")
+        # print(f"  location_detail:{entity.location_detail}")
+        # print(f"  severity:       {entity.severity.value}")
+        # print(f"  urgency:        {entity.urgency_indicators}")
         return {
             "entity": entity.model_dump(),
             "accumulated_description": description,
@@ -214,37 +202,25 @@ def make_extract_entities(llm: ChatOpenAI):
 
 
 def make_check_quality(llm: ChatOpenAI):
-    """Node: validate entity specificity, populate follow_ups list."""
+    """Node: validate entity specificity, populate follow_ups list.
+    Skips validation if extraction_complete is already True (e.g. transcript eval).
+    """
     checker = llm.with_structured_output(EntityQualityCheck)
 
     def check_quality(state: WorkflowState):
-        print("\n[NODE] check_quality")
+        # print("\n[NODE] check_quality")
+        if state.get("extraction_complete"):
+            # Transcript text is already complete — skip clarification loop
+            return {"follow_ups": []}
+
         ent = state["entity"]
         quality = checker.invoke(
-            QUALITY_CHECK_PROMPT.format(
-                problem_type=ent.get("problem_type") or "null",
-                affected_system=ent.get("affected_system") or "null",
-                location_detail=ent.get("location_detail") or "null",
-                urgency_indicators=ent.get("urgency_indicators") or [],
-            )
+            QUALITY_CHECK_PROMPT.format(problem_type=ent.get("problem_type") or "null")
         )
-        follow_ups = [
-            q for q in [
-                quality.problem_type_followup if not quality.problem_type_ok else "",
-                quality.affected_system_followup if not quality.affected_system_ok else "",
-                quality.location_followup if not quality.location_ok else "",
-                quality.urgency_followup if not quality.urgency_ok else "",
-            ]
-            if q
-        ]
-        print(f"  problem_type_ok:   {quality.problem_type_ok}")
-        print(f"  affected_system_ok:{quality.affected_system_ok}")
-        print(f"  location_ok:       {quality.location_ok}")
-        print(f"  urgency_ok:        {quality.urgency_ok}")
-        if follow_ups:
-            print(f"  pending follow-ups: {len(follow_ups)}")
-        else:
-            print("  all fields satisfied — proceeding")
+        follow_ups = [quality.problem_type_followup] if not quality.problem_type_ok else []
+        # print(f"  problem_type_ok: {quality.problem_type_ok}")
+        # if follow_ups:
+        #     print(f"  follow-up: {follow_ups[0]}")
         return {
             "follow_ups": follow_ups,
             "extraction_complete": len(follow_ups) == 0,
@@ -255,7 +231,7 @@ def make_check_quality(llm: ChatOpenAI):
 
 def gather_followup(state: WorkflowState):
     """Node: prompt the user for the first outstanding follow-up, append to description."""
-    print("\n[NODE] gather_followup")
+    # print("\n[NODE] gather_followup")
     question = state["follow_ups"][0]
     answer = input(f"\n{question}\n> ").strip()
     new_description = f"{state['accumulated_description']}. {answer}"
@@ -267,7 +243,7 @@ def gather_followup(state: WorkflowState):
 
 def build_enriched_query(state: WorkflowState):
     """Node: convert the validated entity into a rich query string and inject it as a message."""
-    print("\n[NODE] build_enriched_query")
+    # print("\n[NODE] build_enriched_query")
     ent = state["entity"]
     enriched = (
         f"Problem: {ent['problem_type']}."
@@ -276,7 +252,7 @@ def build_enriched_query(state: WorkflowState):
         + f" Severity: {ent['severity']}."
         + f" {ent['summary']}"
     )
-    print(f"  {enriched}")
+    # print(f"  {enriched}")
     return {
         "enriched_query": enriched,
         "messages": [HumanMessage(content=enriched)],
@@ -286,16 +262,16 @@ def build_enriched_query(state: WorkflowState):
 def make_generate_query_or_respond(llm: ChatOpenAI, retriever_tool):
     """Node: let the LLM decide whether to call the retriever tool or answer directly."""
     def generate_query_or_respond(state: WorkflowState):
-        print("\n[NODE] generate_query_or_respond")
+        # print("\n[NODE] generate_query_or_respond")
         response = (
             llm
             .bind_tools([retriever_tool])
             .invoke(state["messages"])
         )
-        if response.tool_calls:
-            print(f"  decision: call retriever tool")
-        else:
-            print(f"  decision: respond directly (no retrieval needed)")
+        # if response.tool_calls:
+        #     print(f"  decision: call retriever tool")
+        # else:
+        #     print(f"  decision: respond directly (no retrieval needed)")
         return {"messages": [response]}
 
     return generate_query_or_respond
@@ -303,21 +279,46 @@ def make_generate_query_or_respond(llm: ChatOpenAI, retriever_tool):
 
 def make_rewrite_question(llm: ChatOpenAI):
     def rewrite_question(state: WorkflowState):
-        print("\n[NODE] rewrite_question")
+        # print("\n[NODE] rewrite_question")
         question = state.get("enriched_query", state["messages"][0].content)
         prompt = REWRITE_PROMPT.format(question=question)
         response = llm.invoke([{"role": "user", "content": prompt}])
-        print(f"  rewritten: {response.content[:120]}")
+        # print(f"  rewritten: {response.content[:120]}")
         return {"messages": [HumanMessage(content=response.content)]}
 
     return rewrite_question
+
+
+def make_grade_documents(llm: ChatOpenAI):
+    grader = llm.with_structured_output(GradeDocuments)
+
+    def grade_documents(state: WorkflowState) -> Literal["generate_answer", "rewrite_question"]:
+        """Grade retrieved docs for relevance — route to answer or rewrite."""
+        # print("\n[NODE] grade_documents")
+        question = state.get("enriched_query", state["messages"][0].content)
+        context = state["messages"][-1].content
+
+        response = grader.invoke(
+            [{"role": "user", "content": GRADE_PROMPT.format(question=question, context=context)}]
+        )
+        # print(f"  relevant:   {response.binary_score}")
+        # print(f"  confidence: {response.confidence:.2f}")
+        # Borderline "no" (low confidence) → still try to answer rather than rewrite
+        if response.binary_score == "yes" or response.confidence < 0.7:
+            decision = "generate_answer"
+        else:
+            decision = "rewrite_question"
+        # print(f"[ROUTE] retrieve → {decision}")
+        return decision
+
+    return grade_documents
 
 
 def make_generate_answer(llm: ChatOpenAI):
     classifier = llm.with_structured_output(Classification)
 
     def generate_answer(state: WorkflowState):
-        print("\n[NODE] generate_answer")
+        # print("\n[NODE] generate_answer")
         ent = state.get("entity") or {}
         context = state["messages"][-1].content
         prompt = CLASSIFY_PROMPT.format(
@@ -327,9 +328,9 @@ def make_generate_answer(llm: ChatOpenAI):
             candidates=context,
         )
         result = classifier.invoke([{"role": "user", "content": prompt}])
-        print(f"  selected_code: {result.selected_code}")
-        print(f"  confidence:    {result.confidence:.2f}")
-        print(f"  reasoning:     {result.reasoning}")
+        # print(f"  selected_code: {result.selected_code}")
+        # print(f"  confidence:    {result.confidence:.2f}")
+        # print(f"  reasoning:     {result.reasoning}")
         return {
             "classification": result.model_dump(),
             "messages": [HumanMessage(content=f"[{result.selected_code}] {result.reasoning}")],
@@ -340,34 +341,78 @@ def make_generate_answer(llm: ChatOpenAI):
 
 
 #Conditional edge functions
-
 def needs_followup(state: WorkflowState) -> Literal["gather_followup", "build_enriched_query"]:
     """Route after quality check: loop back for more info or proceed."""
     decision = "build_enriched_query" if state.get("extraction_complete") else "gather_followup"
-    print(f"\n[ROUTE] check_quality → {decision}")
+    # print(f"\n[ROUTE] check_quality → {decision}")
     return decision
 
 
-def make_grade_documents(llm: ChatOpenAI):
-    grader = llm.with_structured_output(GradeDocuments)
 
-    def grade_documents(state: WorkflowState) -> Literal["generate_answer", "rewrite_question"]:
-        """Grade retrieved docs for relevance — route to answer or rewrite."""
-        print("\n[NODE] grade_documents")
-        question = state.get("enriched_query", state["messages"][0].content)
-        context = state["messages"][-1].content
+#Pipeline evaluation across Week 2 transcripts using the actual graph
 
-        response = grader.invoke(
-            [{"role": "user", "content": GRADE_PROMPT.format(question=question, context=context)}]
-        )
-        print(f"  relevant:   {response.binary_score}")
-        print(f"  confidence: {response.confidence:.2f}")
-        decision = "generate_answer" if response.binary_score == "yes" else "rewrite_question"
-        print(f"[ROUTE] retrieve → {decision}")
-        return decision
+def run_pipeline_evaluation(graph, transcripts_path: str):
+    """
+    Run all transcripts through the actual graph.invoke() in parallel.
+    Compares predicted problem code AND extracted severity vs ground truth.
+    Transcript runs pass extraction_complete=True to skip the clarification loop.
+    """
+    with open(transcripts_path) as f:
+        transcripts = json.load(f)
 
-    return grade_documents
+    def evaluate_one(t):
+        result = graph.invoke({
+            "messages": [HumanMessage(content=t["transcript"])],
+            "accumulated_description": "",
+            "entity": None,
+            "follow_ups": [],
+            "enriched_query": "",
+            "extraction_complete": True,   # skip clarification loop for complete transcripts
+            "classification": None,
+        })
+        clf = result.get("classification") or {}
+        ent = result.get("entity") or {}
 
+        predicted_code = clf.get("selected_code", "UNKNOWN")
+        predicted_severity = ent.get("severity", "Unknown")
+        # Severity enum may serialize as dict with a 'value' key
+        if isinstance(predicted_severity, dict):
+            predicted_severity = predicted_severity.get("value", str(predicted_severity))
+
+        return {
+            "id": t["id"],
+            "predicted_code": predicted_code,
+            "true_code": t["true_category"],
+            "code_match": predicted_code == t["true_category"],
+            "predicted_severity": predicted_severity,
+            "true_severity": t["true_severity"],
+            "severity_match": predicted_severity == t["true_severity"],
+        }
+
+    print(f"\n[Evaluation] running {len(transcripts)} transcripts through the graph in parallel...")
+    start = time.time()
+    results = []
+
+    with ThreadPoolExecutor(max_workers=5) as pool:
+        futures = {pool.submit(evaluate_one, t): t["id"] for t in transcripts}
+        for future in as_completed(futures):
+            r = future.result()
+            code_status = "✓" if r["code_match"] else "✗"
+            sev_status  = "✓" if r["severity_match"] else "✗"
+            print(
+                f"  {r['id']}  "
+                f"code: {r['predicted_code']:10s} (true: {r['true_code']:10s}) {code_status}  |  "
+                f"severity: {r['predicted_severity']:8s} (true: {r['true_severity']:8s}) {sev_status}"
+            )
+            results.append(r)
+
+    results.sort(key=lambda r: r["id"])
+    code_correct = sum(1 for r in results if r["code_match"])
+    sev_correct  = sum(1 for r in results if r["severity_match"])
+    n = len(results)
+    print(f"\n  Code accuracy:     {code_correct}/{n} ({100*code_correct/n:.0f}%)")
+    print(f"  Severity accuracy: {sev_correct}/{n}  ({100*sev_correct/n:.0f}%)")
+    print(f"  Elapsed:           {time.time() - start:.1f}s")
 
 
 #Graph builder defining nodes and edges
@@ -432,9 +477,21 @@ if __name__ == "__main__":
     vector_db = embed_and_store(chunks)
     retriever_tool = make_retriever_tool(vector_db)
 
+    # Load problem codes dict for severity lookup
+    problem_codes_path = Path(__file__).parent / "problem_codes.json"
+    with open(problem_codes_path) as f:
+        codes_list = json.load(f)
+    problem_codes_dict = {c["code"]: c for c in codes_list}
+
     graph = build_graph(llm=llm, retriever_tool=retriever_tool)
     vis_graph(graph)
 
+    #Evaluate all transcripts through the graph
+    transcripts_path = Path(__file__).parent.parent / "Week2" / "transcripts.json"
+    run_pipeline_evaluation(graph, str(transcripts_path))
+
+    #Describe Issue
+    print("\n" + "="*60)
     user_query = input("\nDescribe the issue: ").strip()
     result = graph.invoke({
         "messages": [HumanMessage(content=user_query)],
@@ -447,26 +504,16 @@ if __name__ == "__main__":
     })
 
     clf = result.get("classification")
+    ent = result.get("entity") or {}
     if clf:
-        print(f"\n[Classification] {clf['selected_code']}  (confidence: {clf['confidence']:.2f})")
-        print(f"  Reasoning: {clf['reasoning']}")
+        code = clf["selected_code"]
+        entity_sev = ent.get("severity", "N/A")
+        if isinstance(entity_sev, dict):
+            entity_sev = entity_sev.get("value", str(entity_sev))
+        official_sev = problem_codes_dict.get(code, {}).get("typical_severity", "N/A")
+        print(f"\n[Classification] {code}  (confidence: {clf['confidence']:.2f})")
+        print(f"  Reasoning:         {clf['reasoning']}")
+        print(f"  Entity severity:   {entity_sev}")
+        print(f"  Official severity: {official_sev}")
     else:
         print(f"\nAnswer: {result['messages'][-1].content}")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
