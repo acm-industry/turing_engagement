@@ -1,0 +1,149 @@
+[
+  {
+    "code": "PLUMB-001",
+    "category": "Plumbing",
+    "subcategory": "Active Water Leak",
+    "description": "Burst or broken pipe causing active water discharge inside the building. May cause ceiling damage, flooding, soaked flooring, or structural risk. Requires immediate emergency response.",
+    "keywords": ["burst pipe", "water pouring", "ceiling leak", "flooding", "pipe break", "water damage", "soaked carpet", "dripping ceiling", "water gushing"]
+  },
+  {
+    "code": "PLUMB-002",
+    "category": "Plumbing",
+    "subcategory": "Roof Leak",
+    "description": "Water intrusion through the roof, typically occurring during or after heavy rain. May drip into occupied spaces, server rooms, or sensitive equipment areas. Requires temporary patching and roofer dispatch.",
+    "keywords": ["roof leak", "rain water", "dripping roof", "ceiling drip", "server room water", "tarp", "buckets", "roofer", "water intrusion", "northwest corner"]
+  },
+  {
+    "code": "PLUMB-003",
+    "category": "Plumbing",
+    "subcategory": "Drain / Fixture Blockage",
+    "description": "Clogged drain, overflowing toilet, or blocked sink fixture causing standing water or sewage backup. Non-emergency unless overflow is spreading to adjacent areas.",
+    "keywords": ["clogged drain", "toilet overflow", "blocked sink", "sewage backup", "standing water", "drain slow", "toilet clog", "overflowing toilet"]
+  },
+  {
+    "code": "ELEC-001",
+    "category": "Electrical",
+    "subcategory": "Power Outage / Panel Failure",
+    "description": "Complete or partial loss of electrical power in a zone, floor, or suite. May be caused by tripped breaker, panel fault, or utility failure. Requires licensed electrician or utility contact.",
+    "keywords": ["power outage", "no power", "breaker tripped", "electrical panel", "power failure", "lights out", "entire floor dark", "circuit breaker", "utility outage"]
+  },
+  {
+    "code": "ELEC-002",
+    "category": "Electrical",
+    "subcategory": "Lighting Malfunction",
+    "description": "Flickering, buzzing, or non-functional light fixtures in a specific room or area. Typically a bulb, ballast, or fixture issue. Non-emergency unless accompanied by burning smell or sparks.",
+    "keywords": ["flickering light", "fluorescent light", "light not working", "bulb out", "light buzzing", "ballast", "headaches", "strobing light", "lighting issue"]
+  },
+  {
+    "code": "ELEC-003",
+    "category": "Electrical",
+    "subcategory": "Electrical Hazard",
+    "description": "Visible sparks, burning smell, exposed wiring, or water near electrical outlets creating an immediate fire or electrocution risk. Treat as Critical. May require evacuation and utility shutoff.",
+    "keywords": ["sparks", "burning smell", "exposed wire", "water near outlet", "electrical fire", "smoke from outlet", "electrocution risk", "outlet leaking", "melting plastic smell"]
+  },
+  {
+    "code": "ELEV-001",
+    "category": "Elevator",
+    "subcategory": "Elevator Entrapment",
+    "description": "Elevator stalled between floors with one or more passengers trapped inside. Emergency phone may or may not be functional. Requires immediate 911 dispatch, elevator service company, and building manager notification.",
+    "keywords": ["elevator stuck", "trapped passengers", "people stuck", "elevator between floors", "elevator entrapment", "emergency phone broken", "elevator panic", "stalled elevator", "call 911"]
+  },
+  {
+    "code": "ELEV-002",
+    "category": "Elevator",
+    "subcategory": "Elevator Malfunction",
+    "description": "Elevator not responding, skipping floors, doors not closing properly, or error codes displayed, but no passengers are trapped. Requires elevator service company dispatch. Take elevator out of service until repaired.",
+    "keywords": ["elevator not working", "elevator doors stuck", "elevator error", "elevator skipping floors", "elevator out of service", "elevator unresponsive", "cab not moving"]
+  },
+  {
+    "code": "HVAC-001",
+    "category": "HVAC",
+    "subcategory": "Cooling Failure",
+    "description": "Air conditioning system blowing warm or ambient air despite thermostat being set to cool. Room temperature significantly elevated. May be compressor, refrigerant, or controls issue. Priority dispatch if tenant-occupied.",
+    "keywords": ["AC not cooling", "warm air", "air conditioning broken", "thermostat set but hot", "82 degrees", "HVAC cooling failure", "no cold air", "air conditioning not working", "heat not turning off"]
+  },
+  {
+    "code": "HVAC-002",
+    "category": "HVAC",
+    "subcategory": "Heating Failure",
+    "description": "Heating system not producing warm air during cold weather. Thermostat set to heat but room remains cold. May be furnace, boiler, or controls issue. Priority in extreme cold weather.",
+    "keywords": ["no heat", "heating failure", "cold air blowing", "furnace not working", "boiler issue", "heater broken", "temperature too cold", "HVAC heating"]
+  },
+  {
+    "code": "HVAC-003",
+    "category": "HVAC",
+    "subcategory": "HVAC Noise / Vibration",
+    "description": "Unusual sounds from HVAC unit including banging, rattling, grinding, or hissing that indicate mechanical wear or component failure. Schedule inspection before failure worsens.",
+    "keywords": ["HVAC noise", "banging sound", "rattling HVAC", "grinding noise", "hissing HVAC", "vibration", "loud air handler", "ductwork noise", "HVAC unit loud"]
+  },
+  {
+    "code": "DOOR-001",
+    "category": "Door & Access",
+    "subcategory": "Fire Door Failure",
+    "description": "Fire-rated door not latching, closing, or sealing properly. Critical life-safety issue as fire doors must self-close to contain smoke and flames. Requires priority repair; door should be manually held closed if possible.",
+    "keywords": ["fire door", "door not closing", "door won't latch", "stairwell door", "door closer broken", "fire safety door", "door swings open", "door not latching", "fire rated door"]
+  },
+  {
+    "code": "DOOR-002",
+    "category": "Door & Access",
+    "subcategory": "Broken / Damaged Door",
+    "description": "Glass door, storefront, or entry door physically damaged, smashed, or shattered. Creates immediate safety hazard from glass and security vulnerability. Requires boarding, glass repair, and possible police report.",
+    "keywords": ["broken glass door", "smashed door", "shattered glass", "glass everywhere", "front door broken", "door vandalism", "security breach", "broken storefront", "glass repair", "board up"]
+  },
+  {
+    "code": "DOOR-003",
+    "category": "Door & Access",
+    "subcategory": "Access Control Failure",
+    "description": "Electronic door locks, card readers, or key fobs not functioning. May result in tenants locked out or, more critically, a security door remaining open. Requires access control technician.",
+    "keywords": ["card reader not working", "key fob broken", "access control failure", "locked out", "badge not working", "electronic lock", "door access system", "security door stuck open"]
+  },
+  {
+    "code": "JANI-001",
+    "category": "Janitorial",
+    "subcategory": "Restroom Supplies / Fixtures",
+    "description": "Restroom consumable supplies (soap, paper towels, toilet paper) depleted or dispensers jammed. Non-urgent; schedule for next cleaning crew visit.",
+    "keywords": ["soap dispenser empty", "paper towel dispenser", "restroom supplies", "empty dispenser", "toilet paper out", "dispenser jammed", "bathroom supplies", "men restroom", "women restroom", "cleaning crew"]
+  },
+  {
+    "code": "JANI-002",
+    "category": "Janitorial",
+    "subcategory": "Carpet Cleaning",
+    "description": "Carpet stain, spill, or general soiling requiring professional steam cleaning or spot treatment. Non-urgent unless spill is spreading or creating slip hazard.",
+    "keywords": ["carpet stain", "coffee spill", "carpet cleaning", "steam clean", "stain removal", "soiled carpet", "carpet spot treatment", "conference room carpet"]
+  },
+  {
+    "code": "JANI-003",
+    "category": "Janitorial",
+    "subcategory": "Biohazard / Spill Cleanup",
+    "description": "Bodily fluid, blood, or other biohazardous material requiring specialized cleanup per OSHA standards. Do not allow standard janitorial staff to clean without proper PPE and training.",
+    "keywords": ["biohazard", "bodily fluid", "blood spill", "vomit", "feces", "OSHA cleanup", "biohazardous waste", "infectious material", "hazmat cleanup"]
+  },
+  {
+    "code": "SAFE-001",
+    "category": "Safety & Hazmat",
+    "subcategory": "Gas Leak / Hazardous Odor",
+    "description": "Strong smell of natural gas, rotten eggs, or sulfur indicating a potential gas leak. Immediate life-safety emergency. Initiate full evacuation, call 911 and gas company, and do not use electrical switches.",
+    "keywords": ["gas smell", "rotten egg smell", "sulfur odor", "natural gas", "gas leak", "evacuation", "hissing gas", "gas company", "hazardous odor", "strong smell", "chemical smell"]
+  },
+  {
+    "code": "SAFE-002",
+    "category": "Safety & Hazmat",
+    "subcategory": "Fire Alarm / Sprinkler Activation",
+    "description": "Fire alarm triggered or sprinkler system discharged. May be a true fire, smoke event, or false alarm from steam/dust. Requires evacuation, fire department notification, and inspection before re-occupancy.",
+    "keywords": ["fire alarm", "smoke alarm", "sprinkler activated", "fire alarm going off", "pull station", "smoke detector", "false alarm", "fire department", "evacuation alarm"]
+  },
+  {
+    "code": "STRUCT-001",
+    "category": "Structural",
+    "subcategory": "Structural Damage",
+    "description": "Visible cracks in walls, floors, or ceilings suggesting structural compromise. Sagging ceilings, fallen ceiling tiles, or partial collapse. Requires structural engineer assessment and possible area evacuation.",
+    "keywords": ["structural crack", "ceiling sagging", "ceiling collapse", "wall crack", "fallen tiles", "structural damage", "ceiling falling", "building crack", "foundation issue"]
+  },
+  {
+    "code": "PEST-001",
+    "category": "Pest Control",
+    "subcategory": "Pest Infestation",
+    "description": "Sighting of rodents, insects (cockroaches, ants, bedbugs), or other pests in occupied areas. Requires licensed pest control vendor. Document sighting location and time.",
+    "keywords": ["mice", "rats", "rodent", "cockroach", "ants", "bedbugs", "pest sighting", "infestation", "insect", "exterminator", "pest control", "vermin"]
+  }
+]

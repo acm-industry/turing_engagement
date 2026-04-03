@@ -1,0 +1,18 @@
+# Environments
+.venv/
+env/
+venv/
+
+# Secrets
+.env
+
+# Python Caches
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# System Files
+.DS_Store
+
+# Claude/Tooling Caches
+.claude/
