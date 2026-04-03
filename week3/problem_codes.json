@@ -1,0 +1,170 @@
+[
+  {
+    "code": "PLUMB-001",
+    "category": "Plumbing",
+    "subcategory": "Pipe Leak / Burst Pipe",
+    "description": "Water leaking or flooding from pipes, including burst pipes, leaking joints, and water supply line failures. May involve ceiling leaks, wall leaks, or floor flooding.",
+    "typical_severity": "High to Critical",
+    "keywords": ["water", "leak", "pipe", "burst", "flooding", "dripping", "ceiling", "soaked"]
+  },
+  {
+    "code": "PLUMB-002",
+    "category": "Plumbing",
+    "subcategory": "Roof Leak",
+    "description": "Water intrusion from the roof due to damaged roofing material, flashing, or drainage issues. Often triggered by heavy rain or snow.",
+    "typical_severity": "High",
+    "keywords": ["roof", "leak", "rain", "dripping", "ceiling", "water damage"]
+  },
+  {
+    "code": "PLUMB-003",
+    "category": "Plumbing",
+    "subcategory": "Toilet / Restroom Plumbing",
+    "description": "Clogged, running, or malfunctioning toilets, urinals, and restroom plumbing fixtures.",
+    "typical_severity": "Medium",
+    "keywords": ["toilet", "clogged", "running", "restroom", "overflow", "flush"]
+  },
+  {
+    "code": "ELEC-001",
+    "category": "Electrical",
+    "subcategory": "Power Outage",
+    "description": "Partial or complete loss of electrical power in a building, floor, or suite. May affect lighting, outlets, and equipment.",
+    "typical_severity": "High",
+    "keywords": ["power", "outage", "electricity", "blackout", "no power", "outlets"]
+  },
+  {
+    "code": "ELEC-002",
+    "category": "Electrical",
+    "subcategory": "Lighting Issue",
+    "description": "Flickering, burned out, or malfunctioning light fixtures including fluorescent tubes, LEDs, and ballasts.",
+    "typical_severity": "Low to Medium",
+    "keywords": ["light", "flickering", "bulb", "fluorescent", "dim", "burned out"]
+  },
+  {
+    "code": "ELEC-003",
+    "category": "Electrical",
+    "subcategory": "Electrical Hazard",
+    "description": "Exposed wiring, sparking outlets, burning smell from electrical panels, or other dangerous electrical conditions.",
+    "typical_severity": "Critical",
+    "keywords": ["spark", "wire", "exposed", "burning smell", "electrical fire", "shock"]
+  },
+  {
+    "code": "HVAC-001",
+    "category": "HVAC",
+    "subcategory": "No Cooling / AC Failure",
+    "description": "Air conditioning system not producing cold air, blowing warm air, or complete AC unit failure.",
+    "typical_severity": "Medium to High",
+    "keywords": ["AC", "air conditioning", "cooling", "warm air", "hot", "temperature", "thermostat"]
+  },
+  {
+    "code": "HVAC-002",
+    "category": "HVAC",
+    "subcategory": "No Heating",
+    "description": "Heating system not producing warm air, boiler or furnace failure, especially critical in winter months.",
+    "typical_severity": "Medium to High",
+    "keywords": ["heat", "heating", "cold", "furnace", "boiler", "frozen"]
+  },
+  {
+    "code": "HVAC-003",
+    "category": "HVAC",
+    "subcategory": "Air Quality / Ventilation",
+    "description": "Poor air quality, strange odors from HVAC system, inadequate ventilation, or mold concerns related to HVAC.",
+    "typical_severity": "Medium",
+    "keywords": ["air quality", "smell", "odor", "ventilation", "mold", "musty", "stuffy"]
+  },
+  {
+    "code": "ELEV-001",
+    "category": "Elevator",
+    "subcategory": "Elevator Entrapment",
+    "description": "People trapped inside an elevator that has stopped between floors. Always treated as an emergency.",
+    "typical_severity": "Critical",
+    "keywords": ["elevator", "stuck", "trapped", "entrapment", "between floors", "panic"]
+  },
+  {
+    "code": "ELEV-002",
+    "category": "Elevator",
+    "subcategory": "Elevator Malfunction",
+    "description": "Elevator not operating correctly but no one is trapped. Includes doors not closing, skipping floors, unusual noises.",
+    "typical_severity": "Medium",
+    "keywords": ["elevator", "malfunction", "doors", "noise", "not working", "skipping"]
+  },
+  {
+    "code": "DOOR-001",
+    "category": "Doors & Access",
+    "subcategory": "Door Malfunction",
+    "description": "Doors not closing, latching, or locking properly. Includes automatic doors, fire doors, and suite entry doors.",
+    "typical_severity": "Medium (High if fire door)",
+    "keywords": ["door", "latch", "close", "lock", "stuck", "closer", "hinge"]
+  },
+  {
+    "code": "DOOR-002",
+    "category": "Doors & Access",
+    "subcategory": "Broken Glass / Window",
+    "description": "Shattered, cracked, or broken glass in doors, windows, or partitions. May be a security or safety concern.",
+    "typical_severity": "High",
+    "keywords": ["glass", "broken", "smashed", "shattered", "window", "crack"]
+  },
+  {
+    "code": "DOOR-003",
+    "category": "Doors & Access",
+    "subcategory": "Access Control / Lock Issue",
+    "description": "Key card readers not working, locks broken, access denied incorrectly, or security badge issues.",
+    "typical_severity": "Medium",
+    "keywords": ["lock", "key card", "access", "badge", "locked out", "security"]
+  },
+  {
+    "code": "SAFE-001",
+    "category": "Life Safety",
+    "subcategory": "Gas Leak / Chemical Hazard",
+    "description": "Suspected gas leak, chemical spill, or hazardous material release. Always treated as an emergency requiring evacuation.",
+    "typical_severity": "Critical",
+    "keywords": ["gas", "smell", "chemical", "hazardous", "fumes", "evacuate", "dangerous"]
+  },
+  {
+    "code": "SAFE-002",
+    "category": "Life Safety",
+    "subcategory": "Fire / Fire Alarm",
+    "description": "Active fire, smoke, or fire alarm activation. Includes sprinkler system activation.",
+    "typical_severity": "Critical",
+    "keywords": ["fire", "smoke", "alarm", "sprinkler", "burning", "flames"]
+  },
+  {
+    "code": "SAFE-003",
+    "category": "Life Safety",
+    "subcategory": "Slip / Trip Hazard",
+    "description": "Wet floors, uneven surfaces, damaged walkways, ice, or other conditions that could cause falls.",
+    "typical_severity": "Medium",
+    "keywords": ["slip", "trip", "wet floor", "ice", "uneven", "hazard", "fall"]
+  },
+  {
+    "code": "JANI-001",
+    "category": "Janitorial",
+    "subcategory": "Restroom Supplies / Cleaning",
+    "description": "Empty soap dispensers, paper towels, toilet paper, or general restroom cleanliness issues.",
+    "typical_severity": "Low",
+    "keywords": ["soap", "paper towel", "toilet paper", "cleaning", "restroom", "dispenser"]
+  },
+  {
+    "code": "JANI-002",
+    "category": "Janitorial",
+    "subcategory": "Carpet / Floor Cleaning",
+    "description": "Stains, spills, or general carpet and floor cleaning needs. Includes steam cleaning requests.",
+    "typical_severity": "Low",
+    "keywords": ["carpet", "stain", "floor", "cleaning", "spill", "steam clean"]
+  },
+  {
+    "code": "PEST-001",
+    "category": "Pest Control",
+    "subcategory": "Pest Infestation",
+    "description": "Reports of insects, rodents, birds, or other pests in or around the building.",
+    "typical_severity": "Medium",
+    "keywords": ["pest", "mouse", "rat", "insect", "cockroach", "ant", "bird", "rodent"]
+  },
+  {
+    "code": "GRND-001",
+    "category": "Grounds & Exterior",
+    "subcategory": "Parking Lot / Exterior Damage",
+    "description": "Potholes, damaged signage, broken fencing, lighting outages in parking areas, or exterior structural damage.",
+    "typical_severity": "Low to Medium",
+    "keywords": ["parking", "pothole", "sign", "fence", "exterior", "lot", "garage"]
+  }
+]

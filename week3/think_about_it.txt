@@ -1,0 +1,65 @@
+Think About It — Week 3 Assignment (CBRE agentic RAG)
+
+1) When the LLM decides not to retrieve — was that the right call? Give an example.
+
+Sometimes yes.
+
+Retrieval is most valuable when the caller’s description is ambiguous
+or could map to several problem codes,
+so similarity search narrows the candidate set.
+
+If the user message is a generic greeting,
+a policy question ("what codes exist?"),
+or clearly does not need the code database,
+skipping retrieval saves latency and cost
+and avoids polluting context with irrelevant chunks.
+
+Example:
+The user says "Thanks, that fixed it"
+or "Can you confirm our SLA response time?"
+There is no maintenance symptom to match to PLUMB-001 vs HVAC-001,
+so not calling the retriever is reasonable.
+
+By contrast, for an actual dispatch decision
+("water pouring from the ceiling in suite 310"),
+not retrieving is usually the wrong call,
+because you need candidate codes from the index.
+
+2) Did the document grading step ever reject a relevant code or keep an irrelevant one?
+
+Yes, both can happen in practice.
+
+Grading is itself an LLM judgment on top of noisy retrieval.
+So it can fail in both directions:
+
+- False negative:
+  The grader says "not relevant"
+  even when the right code is present,
+  which causes an unnecessary rewrite loop.
+
+- False positive:
+  The grader says "relevant"
+  when retrieval returned a plausible-but-wrong code
+  (for example, similar plumbing codes).
+
+That is why production systems monitor retrieval and grading separately
+and often combine multiple signals,
+instead of trusting one binary grading call.
+
+3) Compare your accuracy this week (extraction + RAG + classification) to last week (extraction only). What changed?
+
+This week adds retrieval over 21 problem codes
+plus a classification step that picks a CBRE code.
+
+What changes in practice:
+RAG provides a small candidate set,
+so the model does not need to reason over all codes in one prompt.
+That usually improves routing accuracy when extraction is already good.
+
+Tradeoff:
+You introduce new failure modes.
+Bad retrieval or a bad grader can hurt the final code
+even when extraction is correct.
+
+When reporting results, compare apples to apples:
+severity vs severity, or code vs code.
