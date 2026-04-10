@@ -164,8 +164,8 @@ CLASSIFY_PROMPT = (
     "Candidate problem codes:\n{candidates}\n\n"
 
     "- Output confidence > 0.85 ONLY if you are certain no other code could apply.\n"
-    "- Output confidence < 0.7 if two or more codes are plausible given the description.\n"
-    "- When in doubt, lower your confidence to below 0.7 so a human reviewer can verify.\n"
+    "- Output confidence < 0.8 if two or more codes are plausible given the description.\n"
+    # "- When in doubt, lower your confidence to below 0.7 so a human reviewer can verify.\n"
 )
 
 
@@ -315,7 +315,7 @@ def make_grade_documents(llm: ChatOpenAI):
         # print(f"  relevant:   {response.binary_score}")
         # print(f"  confidence: {response.confidence:.2f}")
         # Borderline "no" (low confidence) → still try to answer rather than rewrite
-        if response.binary_score == "yes" or response.confidence < 0.7:
+        if response.binary_score == "yes" or response.confidence < 0.8:
             decision = "generate_answer"
         else:
             decision = "rewrite_question"
@@ -566,7 +566,7 @@ def vis_graph(graph):
         png_bytes = graph.get_graph().draw_mermaid_png()
         out = Path(__file__).parent / "graph.png"
         out.write_bytes(png_bytes)
-        print(f"\n[Graph] saved to {out}")
+        # print(f"\n[Graph] saved to {out}")
     except Exception:
         print("\n[Graph]")
         print(graph.get_graph().draw_ascii())
@@ -594,6 +594,7 @@ if __name__ == "__main__":
     vis_graph(graph)
 
     #Evaluate all transcripts through the graph
+
     transcripts_path = Path(__file__).parent / "transcripts.json"
     run_pipeline_evaluation(graph, str(transcripts_path))
 
