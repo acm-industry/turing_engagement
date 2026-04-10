@@ -1,0 +1,225 @@
+[
+  {
+    "id": "TX-001",
+    "transcript": "Hi, I'm calling from the third floor of the Westfield office building at 200 Main Street. There's water pouring from the ceiling in the hallway near suite 310. It looks like it's coming from a pipe above the ceiling tiles. The carpet is completely soaked and it's spreading fast. We've put trash cans under it but it's not enough. We need someone here right away.",
+    "building": "Westfield Office Building",
+    "address": "200 Main Street",
+    "caller_role": "Tenant",
+    "true_category": "PLUMB-001",
+    "true_severity": "Critical",
+    "true_routing": "Emergency Plumber + Building Manager"
+  },
+  {
+    "id": "TX-002",
+    "transcript": "Yeah, this is Tom from maintenance at the Lakewood Plaza. One of the fluorescent lights in the second-floor break room has been flickering on and off for about a week now. It's not a big deal but a couple people have mentioned it gives them headaches. Room 205. Whenever someone can get to it is fine.",
+    "building": "Lakewood Plaza",
+    "address": null,
+    "caller_role": "Building Maintenance Staff",
+    "true_category": "ELEC-002",
+    "true_severity": "Low",
+    "true_routing": "Scheduled Electrician"
+  },
+  {
+    "id": "TX-003",
+    "transcript": "I need help urgently. The elevator in Building C at the Riverside Corporate Campus is stuck between the 4th and 5th floor and there are people trapped inside. They've been in there for about 15 minutes now and they're starting to panic. We called out to them through the door and they said the emergency phone inside isn't working. Please send someone immediately.",
+    "building": "Riverside Corporate Campus, Building C",
+    "address": null,
+    "caller_role": "Security Guard",
+    "true_category": "ELEV-001",
+    "true_severity": "Critical",
+    "true_routing": "911 + Elevator Service Company + Building Manager"
+  },
+  {
+    "id": "TX-004",
+    "transcript": "Hi there, I'm in suite 450 at One Commerce Center. The AC has been blowing warm air since yesterday morning. It's about 82 degrees in here according to the thermostat and we have clients coming in tomorrow for a big presentation. Is there any way to get an HVAC tech out here today or first thing tomorrow? The thermostat is set to 72 but it just won't cool down.",
+    "building": "One Commerce Center",
+    "address": null,
+    "caller_role": "Tenant",
+    "true_category": "HVAC-001",
+    "true_severity": "High",
+    "true_routing": "HVAC Technician - Priority"
+  },
+  {
+    "id": "TX-005",
+    "transcript": "This is Janet calling from the ground floor lobby of the Greenway Towers. Someone broke the front glass door overnight — it looks like it was smashed, there's glass everywhere in the entryway. I've blocked off the area with some chairs but people keep trying to walk through it. This is a safety hazard and we need it boarded up or replaced as soon as possible. Also I'm not sure if we should file a police report?",
+    "building": "Greenway Towers",
+    "address": null,
+    "caller_role": "Building Manager",
+    "true_category": "DOOR-002",
+    "true_severity": "High",
+    "true_routing": "Glass Repair Company + Security Team + Police Report"
+  },
+  {
+    "id": "TX-006",
+    "transcript": "Hey, just a quick call. The soap dispensers in the men's restroom on the 6th floor of Tower One are all empty. They've been empty for a couple of days now. Also the paper towel dispenser is jammed. Not urgent at all, just wanted to let someone know so the cleaning crew can take care of it.",
+    "building": "Tower One",
+    "address": null,
+    "caller_role": "Tenant",
+    "true_category": "JANI-001",
+    "true_severity": "Low",
+    "true_routing": "Janitorial Staff"
+  },
+  {
+    "id": "TX-007",
+    "transcript": "We've got a serious situation at the parking garage at 500 Industrial Blvd. There's a strong smell of gas on the second level of the garage — multiple people have reported it in the last 20 minutes. I've started evacuating that level but I'm not sure if it's a gas leak from the building next door or something in the garage itself. We need someone to check this out immediately, this could be really dangerous.",
+    "building": "Parking Garage",
+    "address": "500 Industrial Blvd",
+    "caller_role": "Security Guard",
+    "true_category": "SAFE-001",
+    "true_severity": "Critical",
+    "true_routing": "911 + Gas Company + Full Evacuation Protocol"
+  },
+  {
+    "id": "TX-008",
+    "transcript": "Hello, I'm calling about the carpet in our office at suite 820, Madison Business Park. There's a stain in the main conference room that's been there for a few weeks — looks like someone spilled coffee. We have an important client tour coming up next month and it would be great to get it steam cleaned before then. No rush, just whenever the cleaning service has an opening.",
+    "building": "Madison Business Park",
+    "address": null,
+    "caller_role": "Tenant",
+    "true_category": "JANI-002",
+    "true_severity": "Low",
+    "true_routing": "Scheduled Cleaning Service"
+  },
+  {
+    "id": "TX-009",
+    "transcript": "I'm the building manager at Oakwood Center and we've got a roof leak in the northwest corner of the building. It started during the heavy rain last night and it's dripping into the server room on the top floor. We've put buckets down and covered the equipment with tarps but if the rain picks up again tonight we could have serious damage to the IT infrastructure up there. We need a roofer out here today to at least do a temporary patch.",
+    "building": "Oakwood Center",
+    "address": null,
+    "caller_role": "Building Manager",
+    "true_category": "PLUMB-002",
+    "true_severity": "High",
+    "true_routing": "Emergency Roofer + IT Team Notification"
+  },
+  {
+    "id": "TX-010",
+    "transcript": "Hi, I'm on the 12th floor at Central Tower and the door to the stairwell on our floor won't close properly. It just swings open and won't latch. I think the closer mechanism is broken. It's a fire door so I imagine it's supposed to stay closed for safety reasons. It's been like this since this morning.",
+    "building": "Central Tower",
+    "address": null,
+    "caller_role": "Tenant",
+    "true_category": "DOOR-001",
+    "true_severity": "Medium",
+    "true_routing": "Door Repair Technician - Priority (Fire Safety)"
+  },
+
+  {
+    "id": "TX-011",
+    "transcript": "Hi, this is Derek from suite 540 at Pinnacle Place. There's a weird burning smell coming from the vent above my desk. It started maybe an hour ago. The AC seems to be working fine otherwise — air is blowing and it's cool — but there's definitely something off. It smells almost electrical? A couple of us have headaches now.",
+    "building": "Pinnacle Place",
+    "address": null,
+    "caller_role": "Tenant",
+    "true_category": "ELEC-003",
+    "true_severity": "Critical",
+    "true_routing": "Emergency Electrician + HVAC Tech + Building Evacuation Assessment",
+    "ambiguity_notes": "Burning smell through HVAC vent blurs ELEC-003, HVAC-003, and SAFE-001. Correct triage requires treating as electrical hazard until confirmed otherwise.",
+    "plausible_codes": ["ELEC-003", "HVAC-003", "SAFE-001"]
+  },
+  {
+    "id": "TX-012",
+    "transcript": "Yeah we've got water on the floor in the lobby of Sterling Heights, building 2. Not sure where it's coming from — it rained earlier but the ceiling looks dry. Could be a pipe, could be someone tracked it in, could be the AC unit by the front desk dripping again. There's enough that someone could slip.",
+    "building": "Sterling Heights, Building 2",
+    "address": null,
+    "caller_role": "Security Guard",
+    "true_category": "SAFE-003",
+    "true_severity": "Medium",
+    "true_routing": "Janitorial Staff (immediate) + Plumber/HVAC Tech (investigation)",
+    "ambiguity_notes": "Caller openly doesn't know the water source. Immediate hazard is slip risk, but root cause could be PLUMB-001, PLUMB-002, or HVAC condensate. Requires both cleanup and investigation.",
+    "plausible_codes": ["SAFE-003", "PLUMB-001", "PLUMB-002", "HVAC-001"]
+  },
+  {
+    "id": "TX-013",
+    "transcript": "This is Maria at the Broadview Complex. Tenants on floors 3 and 4 are complaining about a musty smell getting worse over two weeks. A couple people mentioned dark spots on the ceiling tiles near the vents. One tenant says her allergies have been terrible. I'm worried it could be mold.",
+    "building": "Broadview Complex",
+    "address": null,
+    "caller_role": "Building Manager",
+    "true_category": "HVAC-003",
+    "true_severity": "Medium",
+    "true_routing": "HVAC Technician + Mold Inspector + Plumber (leak investigation)",
+    "ambiguity_notes": "Musty smell and dark ceiling spots near vents suggest HVAC mold, but discolored tiles often indicate a hidden pipe or roof leak feeding the moisture. Root cause may be plumbing, not HVAC.",
+    "plausible_codes": ["HVAC-003", "PLUMB-001", "PLUMB-002"]
+  },
+  {
+    "id": "TX-014",
+    "transcript": "Hey, calling from the 7th floor of Meridian Tower. The lights in the east wing hallway keep going on and off — not flickering exactly, more like they cut out for a few seconds then come back. When they go out the vending machine resets too, so I think the outlets lose power. Started about an hour ago.",
+    "building": "Meridian Tower",
+    "address": null,
+    "caller_role": "Tenant",
+    "true_category": "ELEC-001",
+    "true_severity": "High",
+    "true_routing": "Electrician - Priority (intermittent partial outage)",
+    "ambiguity_notes": "Sounds like a lighting issue (ELEC-002) at first, but outlets also losing power indicates an intermittent partial outage (ELEC-001). The on/off cycling could also mask ELEC-003 if caused by a loose connection.",
+    "plausible_codes": ["ELEC-001", "ELEC-002", "ELEC-003"]
+  },
+  {
+    "id": "TX-015",
+    "transcript": "Hi, I'm in the parking garage at Lakeshore Center and there's a pretty bad smell down on level P2. Honestly I can't tell if it's a gas leak or if something died down here — maybe a rat? It's a sharp chemical-ish smell but also kind of organic. A few of us walked through and nobody felt dizzy or anything. Just smells awful.",
+    "building": "Lakeshore Center",
+    "address": null,
+    "caller_role": "Tenant",
+    "true_category": "SAFE-001",
+    "true_severity": "High",
+    "true_routing": "Gas Company (rule out leak first) + Pest Control (if cleared)",
+    "ambiguity_notes": "Caller is torn between gas leak and dead animal. Misclassifying SAFE-001 as PEST-001 delays a potentially life-threatening response. Must rule out gas before downgrading.",
+    "plausible_codes": ["SAFE-001", "PEST-001", "HVAC-003"]
+  },
+  {
+    "id": "TX-016",
+    "transcript": "This is front desk security at the Whitman Building. A tenant on 9 called down saying they can't get into their suite — badge reader just blinks red. But we also had two other tenants on different floors say the same thing in the last ten minutes, and I just noticed the lobby turnstiles are acting up too. Not sure if it's the access system or if we lost power to something.",
+    "building": "Whitman Building",
+    "address": null,
+    "caller_role": "Security Guard",
+    "true_category": "ELEC-001",
+    "true_severity": "High",
+    "true_routing": "Electrician - Priority + Access Control Vendor + Security Team",
+    "ambiguity_notes": "A single badge failure is DOOR-003. Multi-floor simultaneous failures suggest a partial power outage (ELEC-001) affecting the access control system, changing the root cause entirely.",
+    "plausible_codes": ["DOOR-003", "ELEC-001"]
+  },
+  {
+    "id": "TX-017",
+    "transcript": "Um, hi. I'm on the second floor of Gateway Plaza and there's… I think I hear water running inside the wall behind the restroom? The restroom itself looks fine, nothing's overflowing, but you can definitely hear it. And the wall feels kind of warm. I don't know if that's normal. It's the wall shared with the mechanical closet I think.",
+    "building": "Gateway Plaza",
+    "address": null,
+    "caller_role": "Tenant",
+    "true_category": "PLUMB-001",
+    "true_severity": "Medium",
+    "true_routing": "Plumber (investigation) + Building Engineer",
+    "ambiguity_notes": "Running water behind a wall suggests a pipe issue, but a warm wall near a mechanical closet could be a boiler/heating issue (HVAC-002) or even an electrical concern (ELEC-003). The restroom proximity adds PLUMB-003. Caller is describing sensory details without a clear problem statement.",
+    "plausible_codes": ["PLUMB-001", "PLUMB-003", "HVAC-002", "ELEC-003"]
+  },
+  {
+    "id": "TX-018",
+    "transcript": "Yeah I need to report something at the Fairmont Office Park. There's a ceiling tile that's sagging and looks water-stained in the corridor outside suite 210, but it hasn't rained in weeks. There's no active dripping. Also the lights in that same section have been dimmer than usual. I don't know if those two things are related or separate issues.",
+    "building": "Fairmont Office Park",
+    "address": null,
+    "caller_role": "Tenant",
+    "true_category": "PLUMB-001",
+    "true_severity": "Medium",
+    "true_routing": "Plumber (hidden leak investigation) + Electrician (dimming lights)",
+    "ambiguity_notes": "Water stain with no rain rules out PLUMB-002 but suggests a slow hidden pipe leak. Dim lights could be unrelated (ELEC-002) or caused by the same water intrusion affecting wiring. May require two separate work orders or one root-cause investigation.",
+    "plausible_codes": ["PLUMB-001", "ELEC-002", "HVAC-001", "PLUMB-002"]
+  },
+  {
+    "id": "TX-019",
+    "transcript": "Hi, this is really strange and I'm not sure who to call. I'm in suite 1200 at Pacific Tower and every few minutes we hear a loud banging sound — like metal on metal — coming from above us. The floor vibrates a little when it happens. It started after lunch. There's nothing on the floor above us, it's the mechanical level I think. Could be the elevator shaft? Could be HVAC? Honestly no idea.",
+    "building": "Pacific Tower",
+    "address": null,
+    "caller_role": "Tenant",
+    "true_category": "HVAC-001",
+    "true_severity": "Medium",
+    "true_routing": "Building Engineer (mechanical level inspection) + HVAC Tech",
+    "ambiguity_notes": "Banging from a mechanical level could be an HVAC compressor failing, elevator machinery malfunction, or water hammer in pipes. Caller has zero visibility into the cause. The vibration adds urgency but doesn't help classify.",
+    "plausible_codes": ["HVAC-001", "HVAC-002", "ELEV-002", "PLUMB-001"]
+  },
+  {
+    "id": "TX-020",
+    "transcript": "Look, I don't really know how to describe this. Suite 330, Concord Place. The whole office just feels… wrong today. It's stuffy, people are tired, a few folks have headaches. The temperature seems okay, maybe a little warm. No smells exactly but the air just feels heavy. Someone said maybe the ventilation is off, someone else thinks it's the new carpet they installed last weekend off-gassing. We also noticed one of the windows has a hairline crack — could outside air be getting in weird? I don't know. People just don't feel well.",
+    "building": "Concord Place",
+    "address": null,
+    "caller_role": "Tenant",
+    "true_category": "HVAC-003",
+    "true_severity": "High",
+    "true_routing": "HVAC Technician (urgent) + Air Quality Testing + Building Manager",
+    "ambiguity_notes": "Extremely vague symptoms with multiple competing theories from occupants. Could be ventilation failure (HVAC-003), chemical off-gassing from new carpet (SAFE-001), cracked window affecting air balance (DOOR-002), or even CO exposure. Elevated to High because multiple people feeling unwell could indicate a dangerous air quality issue.",
+    "plausible_codes": ["HVAC-003", "SAFE-001", "DOOR-002", "JANI-002"]
+  }
+
+  
+]

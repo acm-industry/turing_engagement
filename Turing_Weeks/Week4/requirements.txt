@@ -1,0 +1,14 @@
+langchain==1.2.10
+langchain-openai==1.1.10
+langchain-community==0.3.25
+langchain-chroma==1.1.0
+langchain-text-splitters==0.3.8
+langgraph==1.0.10
+chromadb==1.5.2
+openai==2.24.0
+pydantic==2.12.5
+python-dotenv==1.2.2
+streamlit==1.55.0
+beautifulsoup4==4.13.4
+jupyter==1.1.1
+ipykernel==7.2.0
