@@ -1,0 +1,122 @@
+[
+  {
+    "id": "TX-001",
+    "transcript": "Hi, I'm calling from the third floor of the Westfield office building at 200 Main Street. There's water pouring from the ceiling in the hallway near suite 310. It looks like it's coming from a pipe above the ceiling tiles. The carpet is completely soaked and it's spreading fast. We've put trash cans under it but it's not enough. We need someone here right away.",
+    "building": "Westfield Office Building",
+    "address": "200 Main Street",
+    "caller_role": "Tenant",
+    "true_category": "PLUMB-001",
+    "true_severity": "Critical",
+    "true_routing": "Emergency Plumber + Building Manager"
+  },
+  {
+    "id": "TX-002",
+    "transcript": "Yeah, this is Tom from maintenance at the Lakewood Plaza. One of the fluorescent lights in the second-floor break room has been flickering on and off for about a week now. It's not a big deal but a couple people have mentioned it gives them headaches. Room 205. Whenever someone can get to it is fine.",
+    "building": "Lakewood Plaza",
+    "address": null,
+    "caller_role": "Building Maintenance Staff",
+    "true_category": "ELEC-002",
+    "true_severity": "Low",
+    "true_routing": "Scheduled Electrician"
+  },
+  {
+    "id": "TX-003",
+    "transcript": "I need help urgently. The elevator in Building C at the Riverside Corporate Campus is stuck between the 4th and 5th floor and there are people trapped inside. They've been in there for about 15 minutes now and they're starting to panic. We called out to them through the door and they said the emergency phone inside isn't working. Please send someone immediately.",
+    "building": "Riverside Corporate Campus, Building C",
+    "address": null,
+    "caller_role": "Security Guard",
+    "true_category": "ELEV-001",
+    "true_severity": "Critical",
+    "true_routing": "911 + Elevator Service Company + Building Manager"
+  },
+  {
+    "id": "TX-004",
+    "transcript": "Hi there, I'm in suite 450 at One Commerce Center. The AC has been blowing warm air since yesterday morning. It's about 82 degrees in here according to the thermostat and we have clients coming in tomorrow for a big presentation. Is there any way to get an HVAC tech out here today or first thing tomorrow? The thermostat is set to 72 but it just won't cool down.",
+    "building": "One Commerce Center",
+    "address": null,
+    "caller_role": "Tenant",
+    "true_category": "HVAC-001",
+    "true_severity": "High",
+    "true_routing": "HVAC Technician - Priority"
+  },
+  {
+    "id": "TX-005",
+    "transcript": "This is Janet calling from the ground floor lobby of the Greenway Towers. Someone broke the front glass door overnight — it looks like it was smashed, there's glass everywhere in the entryway. I've blocked off the area with some chairs but people keep trying to walk through it. This is a safety hazard and we need it boarded up or replaced as soon as possible. Also I'm not sure if we should file a police report?",
+    "building": "Greenway Towers",
+    "address": null,
+    "caller_role": "Building Manager",
+    "true_category": "DOOR-002",
+    "true_severity": "High",
+    "true_routing": "Glass Repair Company + Security Team + Police Report"
+  },
+  {
+    "id": "TX-006",
+    "transcript": "Hey, just a quick call. The soap dispensers in the men's restroom on the 6th floor of Tower One are all empty. They've been empty for a couple of days now. Also the paper towel dispenser is jammed. Not urgent at all, just wanted to let someone know so the cleaning crew can take care of it.",
+    "building": "Tower One",
+    "address": null,
+    "caller_role": "Tenant",
+    "true_category": "JANI-001",
+    "true_severity": "Low",
+    "true_routing": "Janitorial Staff"
+  },
+  {
+    "id": "TX-007",
+    "transcript": "We've got a serious situation at the parking garage at 500 Industrial Blvd. There's a strong smell of gas on the second level of the garage — multiple people have reported it in the last 20 minutes. I've started evacuating that level but I'm not sure if it's a gas leak from the building next door or something in the garage itself. We need someone to check this out immediately, this could be really dangerous.",
+    "building": "Parking Garage",
+    "address": "500 Industrial Blvd",
+    "caller_role": "Security Guard",
+    "true_category": "SAFE-001",
+    "true_severity": "Critical",
+    "true_routing": "911 + Gas Company + Full Evacuation Protocol"
+  },
+  {
+    "id": "TX-008",
+    "transcript": "Hello, I'm calling about the carpet in our office at suite 820, Madison Business Park. There's a stain in the main conference room that's been there for a few weeks — looks like someone spilled coffee. We have an important client tour coming up next month and it would be great to get it steam cleaned before then. No rush, just whenever the cleaning service has an opening.",
+    "building": "Madison Business Park",
+    "address": null,
+    "caller_role": "Tenant",
+    "true_category": "JANI-002",
+    "true_severity": "Low",
+    "true_routing": "Scheduled Cleaning Service"
+  },
+  {
+    "id": "TX-009",
+    "transcript": "I'm the building manager at Oakwood Center and we've got a roof leak in the northwest corner of the building. It started during the heavy rain last night and it's dripping into the server room on the top floor. We've put buckets down and covered the equipment with tarps but if the rain picks up again tonight we could have serious damage to the IT infrastructure up there. We need a roofer out here today to at least do a temporary patch.",
+    "building": "Oakwood Center",
+    "address": null,
+    "caller_role": "Building Manager",
+    "true_category": "PLUMB-002",
+    "true_severity": "High",
+    "true_routing": "Emergency Roofer + IT Team Notification"
+  },
+  {
+    "id": "TX-010",
+    "transcript": "Hi, I'm on the 12th floor at Central Tower and the door to the stairwell on our floor won't close properly. It just swings open and won't latch. I think the closer mechanism is broken. It's a fire door so I imagine it's supposed to stay closed for safety reasons. It's been like this since this morning.",
+    "building": "Central Tower",
+    "address": null,
+    "caller_role": "Tenant",
+    "true_category": "DOOR-001",
+    "true_severity": "Medium",
+    "true_routing": "Door Repair Technician - Priority (Fire Safety)"
+  },
+  {
+    "id": "TX-011",
+    "transcript": "Hi, this is Maria from the 8th floor of the Baxter Building at 900 Harbor Drive. We've got a really strong chemical smell on our entire floor — it's making people nauseous, a couple of people have headaches and one woman feels dizzy. We're evacuating as a precaution because we're not sure if it's a gas leak or what. It smells like chemicals, almost like paint thinner or varnish. I should mention — the building had the lobby and 7th floor hardwood floors refinished over the weekend and the contractors were using some kind of sealant or polyurethane. Could the fumes be traveling up through the ventilation system? Either way, the smell is overwhelming and people can't work in here. We need someone to figure out what's going on immediately.",
+    "building": "Baxter Building",
+    "address": "900 Harbor Drive",
+    "caller_role": "Tenant",
+    "true_category": "HVAC-003",
+    "true_severity": "Critical",
+    "true_routing": "HVAC Tech (increase fresh air intake) + Notify refinishing contractor + Open windows"
+  },
+  {
+    "id": "TX-012",
+    "transcript": "This is an emergency call from Meridian Tower, suite 1200. We're evacuating the floor right now — there's a strong burning smell pouring through every air vent on the 12th floor. It smells like melting plastic or burning rubber, and you can see faint haze coming out of two of the ceiling vents near the elevator lobby. People are coughing and one person felt dizzy. We shut off the thermostat and the HVAC controls but the smell keeps coming — it's definitely getting worse, not better. The rooftop HVAC unit was making a grinding noise all yesterday. I think something is on fire inside the ventilation system or the air handling unit is burning out. We need someone here immediately — this could be a fire hazard. We've already called the fire department as a precaution.",
+    "building": "Meridian Tower",
+    "address": null,
+    "caller_role": "Tenant",
+    "true_category": "ELEC-003",
+    "true_severity": "Critical",
+    "true_routing": "Electrician (emergency) + HVAC Tech + Floor evacuation"
+  }
+]
